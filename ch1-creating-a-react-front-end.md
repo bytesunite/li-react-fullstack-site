@@ -68,7 +68,7 @@ export default function HomePage() {
 }
 </code></pre>
 
-If you look in *src/main.jsx* you will it uses JavaScript to grab an element from *index.html* and renders the *App* component. The *App* component is the main component for a React application. So let's try to render the *HomePage* component inside the *App* component. To do this open "src/App.jsx" and replace all the content following the *return* statement. Instead, after the return statement provide `<HomePage />`. This by itself will not work. We need to import the component before we can use it in the App component.
+If you look in *src/main.jsx* it uses JavaScript to grab an element from *index.html* and renders the *App* component. The *App* component is the main component for a React application. So let's try to render the *HomePage* component inside the *App* component. To do this open "src/App.jsx" and replace all the content following the *return* statement. Instead, after the return statement provide `<HomePage />`. This by itself will not work. We need to import the component before we can use it in the App component.
 
 <pre><code>
 import './App.css';
@@ -84,7 +84,7 @@ export default App;
 
 If all went well, your React app will now display large text saying *This is the Home Page!* in the middle of the page.
 
-But this has limited use. We need to add *routing* to our app in order to display more than one page. When navigating to another page, the url should change an the other page should be displayed. For example, if we went to the url "/about" we would expect the About page to display.
+But this has limited use. We need to add individual routes to our app in order to display more than one page. When navigating to another page, the url should change and the other page should be displayed. For example, if we went to the url "/about" we would expect the About page to display.
 
 
 ### Adding React Router to an application
@@ -97,11 +97,11 @@ For example the instructor is using 6.4, but when taking this course the most re
 user/$ `npm install -D react-router-dom@6.4`
 
 Once React Router is installed we will 
-- import *createBrowserRouter* and *RouterProvider* from *react-router-dom* 
-- create an array of objects for routes in the web application.
-  each object will contain a "path" property for the url &
+- Import *createBrowserRouter* and *RouterProvider* from *react-router-dom* 
+- Create an array of objects for routes in the web application.
+  Each object will contain a "path" property for the url &
   an "element" property for the component we want to render at this path.
-- create additional component pages and import them into *App.jsx*
+- Create additional component pages and import them into *App.jsx*
 
 
 [pages/AboutPage.jsx]
