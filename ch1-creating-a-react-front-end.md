@@ -202,3 +202,146 @@ If all went well you should be able to visit each route:
 - /articles
 - /articles/individual
 
+
+### Using React Router to an application
+Right now we are manually typing in each route in the web browser so lets create links we can click to navigate from one page to another. First we will create a navbar, and second we will create a template to display this on every page.
+
+
+Step one is to create a navbar letting us navigate between pages.
+The &lt;Link> tag, provided by "react-router-dom", allows us to navigate between pages.
+The **to** attribute specifies the route/url. 
+A &lt;Link> differs from a traditional anchor &lt;a> in that an anchor tag's default behavior is making a server request for a new page. We don't want a new request, instead we want React to render new content on the current page. React apps are typically SPA so content is swapped out rather than request a new page and render it.
+
+Create a NavBar component outside the "/pages" directory.
+
+[src/NavBar.jsx]
+<pre><code>
+export default function NavBar() {
+  return (
+    &lt;nav>
+      &lt;ul>
+        &lt;li>
+          &lt;Link to='/'>Home&lt;/Link>
+        &lt;/li>
+        &lt;li>
+          &lt;Link to='/About'>About&lt;/Link>
+        &lt;/li>
+        &lt;li>
+          &lt;Link to='/articles'>Articles&lt;/Link>
+        &lt;/li>
+      &lt;/ul>
+    &lt;/nav>
+  );
+}
+</code></pre>
+
+
+Step 2 is to use a component as a template to display the navbar on every page, only changing the main content of the page.
+Although you could repeat yourself and provide a navbar on each of your page components its not good practice & a maintenance issue (removing or moving the navbar would require you to do it on every page).
+
+With the NavBar complete, go into the App component, import the NavBar component, and place the NavBar above the RouterProvide tag that inserts our individual page content.
+NOTE: A Fragment tag is needed when returning multiple siblings from a component.
+
+[src/App.jsx]
+<pre><code>
+...
+import NavBar from './NavBar.jsx';
+...
+function App(){
+...
+  return (
+    &lt;>
+      &lt;NavBar />
+      &lt;RouterProvider router={router} />
+    &lt;/>
+  );
+}
+</code></pre>
+
+
+Fire up your development server and test it out.
+It will NOT work!!! 
+
+Troubleshoot by clicking on the page and "inspect" the document. Go to the "Console" tab to explore any error messages. You may get one or more errors.
+For example, "Uncaught Error: useHref() may be used only in the context of a Router component".
+
+So how do we fix this?
+The problem is we can NOT use the &lt;Link> component outside of a &lt;RouterProvider component. Right now,
+The NavBar component imports and uses &lt;Link.
+The App component imports NavBar and attempts to place this element as a sibling to the &lt;RouterProvider> that we are returning from the App component.
+
+To fix this we need to create a layout component that we can provide to the RouterProvider.
+Inside of the "src" directory create a new component named "Layout.jsx".
+Import the NavBar component.
+And import the Outlet component from "react-router-dom". This tag will provide a placeholder of sorts (a space) for the RouterProvider to insert content from the pages we specified as elements for our routes.
+NOTE: Outlet is imported as {Outlet} rather than how other local components
+      are imported. If you get an error message where react-router-dom is
+      complaining about about NavBar 'default' this is likely the reason.
+
+
+[src/Layout.jsx]
+<pre><code>
+import NavBar from './NavBar.jsx'
+import { Outlet } from 'react-router-dom';
+
+export default function Layout() {
+  return (
+    &lt;>
+      &lt;NavBar />
+      &lt;Outlet />
+    &lt;/>
+  )
+}
+</code></pre>
+
+
+
+Now back in App.jsx you can remove the import for NavBar.
+And instead we can import the Layout component.
+Then we will modify our routes array.
+The whole array of routes for the individual pages we created earlier will be added to a prop named "children" in a single route for our layout. The element for this single route will be &lt;NavBar /> and the path will be '/'.
+Remove the &lt;NavBar component from the App return value, only returning the &lt;RouterProvider /> element.
+
+<pre><code>
+...
+import Layout from './Layout.jsx';
+
+function App() {
+  const routes = [
+    {
+      path:'/',
+      element: &lt;Layout />,
+      children: [
+        {
+          path:'/',
+          element:&lt;HomePage />
+        },
+        {
+          path:'/about',
+          element:&lt;About />
+        },
+        {
+          path:'/articles',
+          element:&lt;ArticlesListPage />
+        },
+        {
+          path:'/articles/individual',
+          element:&lt;ArticlePage />
+        }
+      ] 
+    }
+  ];
+
+  const router = createBrowserRouter(routes);
+
+  return &lt;RouterProvider router={router} />;
+}
+</code></pre>
+
+
+Well that was fun. Go ahead and start the develpment server and try it again. This time it should work! Test it out by clicking on the navbar links and make sure you are seeing the right page and url.
+Don't wory about the styling of the list of links, that can easily be cleaned up with a little CSS.
+
+Everything looks pretty good but we skipped adding the Article page to our navbar. This is because we will show this page only when clicking on an article from the Articles page. This is discussed in the next lesson.
+
+
