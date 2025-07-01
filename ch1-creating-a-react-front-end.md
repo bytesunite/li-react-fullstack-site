@@ -425,4 +425,81 @@ export default function ArticlePage() {
 
 
 
+### Creating and Linking the Articles List
+---
+Right now we can manually type in a url to render an individual article from a list of articles using a route parameter.
+The next step is to build the interface for the ArticlesListPage where each item in the list is clickable, opening the individual article in ArticlePage.
+
+- Import articles from the file "article-content.js" into ArticlesListPage.
+- Update the page header to simply say "Articles".
+- Loop through the article using map() and display the article title
+  and provide the first 150 characters from the article content
+- Make the article clickable with the Link component from 'react-router-dom'
+  use the base of "/articles/" combined with the article name for the path.
+  We also need a "key" property for each Link, and we will use the article name.
+
+<pre><code>
+import { Link } from 'react-router-dom';
+import articles from '../article-content.js';
+
+export default function ArticlesListPage() {
+  return (
+    &lt;>
+      &lt;h1>Articles&lt;/h1>
+      {articles.map(a => (
+        &lt;Link key={a.name} to={'/articles/' + a.name}>
+          &lt;h3>{a.title}&lt;/h3>
+          &lt;p>{a.content[0].substring(0,150)}&lt;/p>
+        &lt;/Link>
+      ))}
+    &lt;/>
+  );
+}
+</code></pre>
+
+
+Now, we can refactor our code to make this common behavior of listing articles to a separate component. This allows us to use the same functionality on other pages, such as inserting a portion of articles on the home page.
+
+Create a new component *ArticlesList* in the "src" directory. This is not a page, it is more of a utility component so it is not in the "pages" directory.
+Grab the map() portaion of ArticlesListPage and insert it into the ArticlesList.
+
+[src/ArticlesList.jsx]
+<pre><code>
+import { Link } from 'react-router-dom';
+
+export defaut ArticlesList({ articles }){
+  return (
+    &lt;>
+      {articles.map(a => (
+        &lt;Link key={a.name} to={'/articles/' + a.name}>
+          &lt;h3>{a.title}&lt;/h3>
+          &lt;p>{a.content[0].substring(0,150)}&lt;/p>
+        &lt;/Link>
+      ))}
+    &lt;/>
+  );
+}
+</code></pre>
+
+
+Now, go back to the ArticlesListPage 
+- Remove the Link import
+- Import the ArticlesList component 
+- Replace the map() we had earlier with the *ArticlesList* & pass articles as a prop.
+
+[src/pages/ArticlesListPage.jsx]
+<pre><code>
+import articles from '../article-content.js';
+import ArticlesList from '../ArticlesList.jsx';
+
+export default function ArticlesListPage() {
+  return (
+    &lt;ArticlesList articles={articles} />
+  );
+}
+</code></pre>
+
+
+If all went well it should work the same as before.
+
 
