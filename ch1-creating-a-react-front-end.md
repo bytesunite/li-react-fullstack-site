@@ -107,7 +107,7 @@ Once React Router is installed we will
 [pages/AboutPage.jsx]
 <pre><code>
 export default function AboutPage() {
-  return <h1>This is the About Page!</h1>;
+  return &lt;h1>This is the About Page!&lt;/h1>;
 }
 </code></pre>
 
@@ -203,7 +203,8 @@ If all went well you should be able to visit each route:
 - /articles/individual
 
 
-### Using React Router to an application
+### Using React Router Links
+---
 Right now we are manually typing in each route in the web browser so lets create links we can click to navigate from one page to another. First we will create a navbar, and second we will create a template to display this on every page.
 
 
@@ -343,5 +344,85 @@ Well that was fun. Go ahead and start the develpment server and try it again. Th
 Don't wory about the styling of the list of links, that can easily be cleaned up with a little CSS.
 
 Everything looks pretty good but we skipped adding the Article page to our navbar. This is because we will show this page only when clicking on an article from the Articles page. This is discussed in the next lesson.
+
+
+### URL Parameters with React Router
+---
+The navbar has links to the homepage, about page, and articles page.
+However, we still need to handle the article page. Currently the article page has a route of "articles/individual" but we need to be able to provide a dynamic value in place of "individual".
+To do this we make use of something called a *url parameter* or *route parameter*.
+The syntax is to use a colon : followed by a name. This basically grabs whatever is after the colon as the value for the route.
+
+
+NOTE: You can use any param name you want :name, :id, articleId, etc.
+<pre><code>
+  {
+    path:'/articles/:name',
+    element:&lt;ArticlePage/>,
+  }
+</code></pre>
+
+By setting the ArticlePage route to "articles/:name" it will render the &lt;ArticlePage> element/component when the url has any value following "articles/", such as "articles/learn-node", "articles/learn-react", etc.
+The route parameter name (here it is :name) is how you access the value in url from within your component. Inside ArticlePage you will use the value of the router parameter to find a single article in an array of articles and display it.
+
+First, we need some articles. The instructor creates a file in the "src" directory named "article-content.js". The data for this file can be found in the GitHub repo.
+
+GitHub Repository [article-content.js](https://github.com/LinkedInLearning/react-creating-and-hosting-a-full-stack-site-5948186/blob/01_09_start/front-end/src/article-content.js)
+
+Each article object is made up of a few properties:
+- name - This example uses what is called a SLUG, a shortened title meant for a url
+- title - The article title
+- content - An array of paragraphs for the article. In this example its just Lorem Ipsum text which is just dummy/garbage text.
+
+
+Next, we learn how to grab the value from route parameter, from within the ArticlePage component. The *useParams()* hook is a function from react-router-dom that helps us with this task. We use this hook inside our component and since we used "name" we can destructure this from the value returned from useParams().
+
+<pre><code>
+import { useParams } from 'react-router-dom';
+
+export default function ArticlePage() {
+  const { name } = useParams();
+
+  return (
+    &lt;>
+      &lt;h1>This is the {name} article&lt;/h1>
+    &lt;/>
+  )
+}
+</code></pre>
+
+
+Go ahead and test this out by starting up the dev server and typing in a url such as "http://localhost:5173/articles/hello".  You should see the ArticlePage component rendered with the text "This is the hello article". 
+
+The "article-content.js" file has names (learn-react, learn-node, and mongodb). The url parameters will attempt to match the name of a specific article to filter it out and display it with the ArticlePage component.
+
+First, import the "article-content.js" file into the ArticlePage component.
+Then filter the article by the url parameter value.
+Finally, you will display the results. 
+Optionally you can display a message if the article was not found or don't do anything and let an ugly error display. 
+NOTE: The instructor does not attempt to catch errors for an invalid route parameter value.
+      An Uncaught error is displayed and provides details of of your app components. 
+      I decided to check for a valid article to address this.
+
+<pre><code>
+import { useParams } from 'react-router-dom';
+import articles from '../article-content.js';
+
+export default function ArticlePage() {
+  const { name } = useParams();
+  const article = articles.find(a => a.name === name);
+
+  return (
+    &lt;>
+      &lt;h1>
+        {article ? name : 'Article not found'}
+      &lt;/h1>
+      {article && article.content.map(p => &lt;p key={p}>{p}&lt;/p>)}
+    &lt;/>
+  )
+}
+</code></pre>
+
+
 
 
