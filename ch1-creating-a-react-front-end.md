@@ -548,3 +548,29 @@ The, type in some urls that don't match any route (/blah, articles/hello), and y
 NOTE: The instructor mentions you won't always want the error page for every route but fails to go into details of how and when to do this.
 
 
+### Adding Styles
+---
+The app is functional but doesn't look great. The instructor provides CSS styling to improve how the app looks. He suggests copying the CSS from the repo for the files "App.css" and "index.css" and replacing your you files with the CSS styles.
+The instructor put all the styles for this project in *index.css* to simplify things.
+
+GitHub: [ch1-9 files](https://github.com/LinkedInLearning/react-creating-and-hosting-a-full-stack-site-5948186/tree/01_09_start)
+
+GitHub: [ch1-9 App.css](https://github.com/LinkedInLearning/react-creating-and-hosting-a-full-stack-site-5948186/blob/01_09_start/front-end/src/App.css)
+
+GitHub: [ch1-9 index.css](https://github.com/LinkedInLearning/react-creating-and-hosting-a-full-stack-site-5948186/blob/01_09_start/front-end/src/index.css)
+
+
+The *index.css* file is where you put all the global CSS styles. These are styles you want to apply to your entire application.
+The *App.css* file is where you put all the styles that are specific only to your App component.
+
+If you take a look at *App.jsx* you will see an import statement that imports CSS styles from *App.css*
+
+[App.jsx]
+...
+import './App.css';
+
+
+
+And this ends the the first section of the course building the front end.
+Next, the course will start looking at building the backend and installing MongoDB.
+
