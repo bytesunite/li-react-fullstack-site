@@ -503,3 +503,48 @@ export default function ArticlesListPage() {
 If all went well it should work the same as before.
 
 
+### Creating a 404 page in React
+---
+The app has 4 routes (homepage, about, articles, article) but attempting to go to an invalid route/url will throw an Unhandled Error, displaying the default 404 not found page.
+
+To make a more appealing page when the route can't be found, we can modify our routes and create a page that is displayed.
+In the root route, where we are displaying the &lt;Layout> element, we can add another property named *errorElement* and provide a component we want to display when an error is detected.
+
+[App.jsx]
+<pre><code>
+...
+import NotFoundPage from './pages/NotFoundPage.jsx';
+...
+function App(){
+  const routes = [
+    {
+      path:'/',
+      element: &lt;HomePage />,
+      errorElement: &lt;NotFoundPage />,
+      children: [
+        ...
+      ]
+    }
+  ]
+}
+</code></pre>
+
+
+[pages/NotFoundPage.jsx]
+<pre><code>
+export default function NotFoundPage() {
+  return (
+    <>
+      &lt;h1>Page Not Found&lt;/h1>
+      &lt;p>The link you followed to get here must be broken...&lt;/p>
+    <>
+  )
+}
+</code></pre>
+
+
+Go ahead and start the dev server and navigate using the navbar and everything should work.
+The, type in some urls that don't match any route (/blah, articles/hello), and you should see the error page.
+NOTE: The instructor mentions you won't always want the error page for every route but fails to go into details of how and when to do this.
+
+
