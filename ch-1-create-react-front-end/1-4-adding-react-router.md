@@ -27,13 +27,13 @@ function App() {
   const routes = [
     {
       path: '/',
-      element: <HomePage/>,
+      element: &lt;HomePage/>,
     }
   ];
 
   const router = createBrowserRouter(routes);
 
-  return <RouterProvider router={router}/>
+  return &lt;RouterProvider router={router}/>
 }
 
 export default App
