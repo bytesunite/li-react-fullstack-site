@@ -20,8 +20,9 @@ With this new package installed, modify App.jsx to add logic to generate routes.
 
 [src/App.jsx]
 <pre><code>
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import './App.css';
 import HomePage from './pages/HomePage.jsx';
-import AboutPage from './pages/AboutPage.jsx';
 
 function App() {
   const routes = [
