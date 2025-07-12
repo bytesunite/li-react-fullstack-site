@@ -5,12 +5,14 @@ import AboutPage from './pages/AboutPage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
 import ArticlesListPage from './pages/ArticlesListPage.jsx';
 import Layout from './Layout.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 function App() {
   const routes = [
     {
       path: '/',
       element: <Layout />,
+      errorElement: <NotFoundPage />,
       children: [
         {
           path: '/',
