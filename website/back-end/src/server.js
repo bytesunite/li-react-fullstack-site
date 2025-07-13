@@ -1,12 +1,18 @@
 // const express = require('express');
 import express from 'express';
 
-const server = express();
+const app = express();
 
-server.get('/hello', (req, res)=>{
-  res.send('Hello!');
+app.use(express.json())
+
+app.get('/hello', (req, res)=>{
+  res.send('Hello from a GET endpoint!');
 })
 
-server.listen(8000, ()=>{
+app.post('/hello', (req, res) => {
+  res.send('Hello, ' + req.body.name + ' from a POST endpoint!');
+})
+
+app.listen(8000, ()=>{
   console.log('Server listening on port 8000');
 });
