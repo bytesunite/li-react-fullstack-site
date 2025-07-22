@@ -43,21 +43,14 @@ app.post('/api/articles/:name/comments', async (req, res) => {
 </pre>
 
 
-With these changes it's time to test it out. Start up your database and web server if they are not already running. Then go to Postman and make a new POST request with a json body.<br>
+With these changes it's time to test it out. Start up your database and web server if they are not already running. Then go to Postman and make a new POST request with a raw JSON body.<br>
 
-"Postman Example POST request with data"
-<pre>
-POST - http://localhost:8000/api/articles/learn-node/comments
+<figure>
+  <figcaption><span style="color:gray;font-size:smaller;">Postman Example : POST request with JSON data</span></figcaption>
+  <img src="./postman-post-request-comments.png" alt="Postman application http POST request" />
+</figure>
 
-body - raw - JSON
-
-{
-  "postedBy": "Shaun",
-  "text": "Great article"
-}
-</pre>
-
-If all went well Postman will respond with an article for learn-node with the new comment added to the "comments" array.
+If all went well Postman will respond with an article for *learn-react* with the new comment added to the "comments" array.
 
 Finally we can delete the static *articleInfo* array we were using earlier in the course before we created and populated a new MongoDB database.<br>
 
