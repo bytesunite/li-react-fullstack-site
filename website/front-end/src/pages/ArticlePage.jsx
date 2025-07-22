@@ -1,4 +1,5 @@
 import { useParams, useLoaderData } from 'react-router-dom';
+import axios from 'axios';
 import articles from '../article-content.js';
 
 export default function ArticlePage(){
@@ -16,4 +17,10 @@ export default function ArticlePage(){
         {article && article.content.map(p => <p key={p}>{p}</p>)}
       </article>
   );
+}
+
+export async function loader({ params }){
+  const response = await axios.get('/api/articles/' + params.name);
+  const {upvotes, comments} = response.data;
+  return {upvotes, comments};
 }
