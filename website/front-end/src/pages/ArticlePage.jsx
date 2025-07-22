@@ -1,6 +1,7 @@
 import { useParams, useLoaderData } from 'react-router-dom';
 import axios from 'axios';
 import articles from '../article-content.js';
+import CommentsList from '../CommentsList.jsx';
 
 export default function ArticlePage(){
   const {name} = useParams();
@@ -11,11 +12,12 @@ export default function ArticlePage(){
   const errorMessage = "Article Not Found";
 
   return (
-      <article>
+      <>
         <h1>{article ? article.title : errorMessage}</h1>
         <p>This article has {upvotes} upvotes!</p>
         {article && article.content.map(p => <p key={p}>{p}</p>)}
-      </article>
+        <CommentsList comments={comments} />
+      </>
   );
 }
 
