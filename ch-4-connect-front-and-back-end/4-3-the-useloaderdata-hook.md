@@ -31,7 +31,7 @@ With this is place, lets test it out. To test this we need to make sure the foll
 2) make sure the express server is running
 3) make sure the front end we created with Vite is running
 
-Then go to the url "http://localhost/articles/learn-node".
+Then go to the url "http://localhost:5173/articles/learn-node".
 
 OOPS! our upvotes is NOT working.<br>
 Open up the browser Dev Tools and navigate to the "Network" tab, then go to "Fetch/XHR". This will show us the requests made from our front end. You should see a request was made from App.jsx for "learn-node". Click on "learn-node" under the name and navigate to "Headers" to get information about the request.<br>
