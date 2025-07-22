@@ -3,30 +3,29 @@
 
 We haven't looked at the front-end code for awhile so lets review it. Specifically, open up "front-end/src/App.jsx" and refresh your memory of the routes we setup. You will see we essentially specified a React component to render for different browser urls. For example, when we visit the homepage at "http://localhost:8000/" the router will render the *Layout* component that acts as a template, and it inserts the *HomePage* component inside it.<br>
 
-"front-end/src/App.jsx"<br>
-<pre><code>
-...
+<span style="font-size:smaller;color:gray;">front-end/src/App.jsx</span><br>
+<pre><code>...
 const routes = [
     {
       path: '/',
-      element: <Layout />,
-      errorElement: <NotFoundPage />,
+      element: &lt;Layout />,
+      errorElement: &lt;NotFoundPage />,
       children: [
         {
           path: '/',
-          element: <HomePage/>,
+          element: &lt;HomePage/>,
         },
         {
           path: '/about',
-          element: <AboutPage/>,
+          element: &lt;AboutPage/>,
         },
         {
           path: '/articles',
-          element: <ArticlesListPage/>
+          element: &lt;ArticlesListPage/>,
         },
         {
           path: '/articles/:name',
-          element: <ArticlePage/>
+          element: &lt;ArticlePage/>,
         }
       ]
     }
@@ -43,12 +42,12 @@ For security reasons, browsers restrict cross-origin HTTP requests initiated fro
 
 So let's try to manually get the "learn-node" article from our front-end using *axios.get()* and see what happens. Later we will learn how to use a dynamic value for the article name.
 
-<pre><code>
-...
+<span style="font-size:smaller;color:gray;">front-end/src/App.jsx</span><br>
+<pre><code>...
 import axios from 'axios';
 ...
   path: '/articles/:name',
-  element: <ArticlePage>,
+  element: &lt;ArticlePage>,
   loader: async function() {
     const response = await axios.get()
     const {upvotes, comments} = response.data;

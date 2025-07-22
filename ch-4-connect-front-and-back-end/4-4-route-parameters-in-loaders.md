@@ -5,9 +5,8 @@ In the last lesson we hard coded a path to the "learn-node" article to grab the 
 
 To fix this we need to take the url parameter and be able to pass it to the *loader* function. This is pretty simple. To do this you create a parameter for the loader function. React will automatically pass the parameters to the loader function.<br>
 
-"front-end/src/App.jsx"<br>
-<pre><code>
-...
+<span style="font-size:smaller;color:gray;">front-end/src/App.jsx</span><br>
+<pre><code>...
   path: '/articles/:name',
   element: &lt;ArticlePage />,
   loader: async function( { params }) {
@@ -38,9 +37,8 @@ If they remain the same either you did not update App.jsx correctly or the datab
 
 Now we can clean up our code by putting the loader functions directly in the components. For example we can cut the loader function from App.jsx and put it into the ArticlePage component.
 
-"front-end/src/pages/ArticlePage.jsx"<br>
-<pre><code>
-...
+<span style="font-size:smaller;color:gray;">front-end/src/pages/ArticlePage.jsx</span><br>
+<pre><code>...
 import axios from 'axios';
 ...
 export default ArticlePage(){
@@ -56,9 +54,8 @@ export async loader({ params }){
 
 Then back in App.jsx we can import it, give it an alias, and provide this as the value for the "loader" property. You can also remove the import of axios because that was moved to the ArticlePage component.
 
-"front-end/src/App.jsx"<br>
-<pre><code>
-...
+<span style="font-size:smaller;color:gray;">front-end/src/App.jsx</span><br>
+<pre><code>...
 import ArticlePage, {loader as articleLoader} from './pages/ArticlePage.jsx';
 ...
 {

@@ -5,9 +5,8 @@ In the last lesson we added a "loader" property and function to make a http requ
 
 To use the returned data in the element we provided for the route, we need help from the *useLoaderData* hook found in "react-router-dom". So open up the *ArticlePage* component and modify it as follows. It is pretty simple, calling useLoaderData() within the component will return the data. Since we returned {comments, upvotes} we can destructure it as follows:<br>
 
-"src/pages/ArticlePage.jsx"<br>
-<pre><code>
-import { useParams, useLoaderData } from 'react-router-dom';
+<span style="font-size:smaller;color:gray;">src/pages/ArticlePage.jsx</span><br>
+<pre><code>import { useParams, useLoaderData } from 'react-router-dom';
 import articles from '.../article-content.js';
 
 export default function ArticlePage() {
@@ -43,9 +42,8 @@ What we need to do is create a "proxy".<br>
 Since we created our React app with Vite, we can configure Vite's "vite.config.js" configuration file. We will modify the object provided to the defineConfig function.<br>
 NOTE: If you are using Codespaces the url will be your specific Codespace url.
 
-"front-end/vite.config.js"<br>
-<pre><code>
-import { defineConfig } from 'vite'
+<span style="font-size:smaller;color:gray;">front-end/vite.config.js</span><br>
+<pre><code>import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
