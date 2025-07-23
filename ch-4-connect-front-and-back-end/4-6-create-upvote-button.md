@@ -5,13 +5,12 @@ Now that we can make a request for data, the next step is to make a request to u
 
 Next we will create a button to increment an article's upvote value with help of axios.
 1. Create a button on the *ArticlePage* with a value of "Upvote"
-2. Add an *onClick()" prop to the button and provide a handler function named "onUpvoteClicked"
-3. rename the variable returned from the *useLoaderData* to "initialUpvotes" to prevent name conflicts. `const { upvotes : initialUpvotes, comments } = useLoaderData();`
-4. import the *useState* hook. Initialize a new state variable named "upvotes" with a setter "setUpvotes" and initialize it with "initialUpvotes". `const [upvotes, setUpvotes] = useState[initialUpvotes];`
+2. Add an *onClick* prop to the button and provide a handler function named "onUpvoteClicked"
+3. rename the variable returned from the *useLoaderData* hook to "initialUpvotes" to prevent name conflicts. `const { upvotes : initialUpvotes, comments } = useLoaderData();`
+4. import the *useState* hook. After the call to the *useLoaderData* hook, create a new state variable named "upvotes" with a setter "setUpvotes" and initialize it with "initialUpvotes". `const [upvotes, setUpvotes] = useState[initialUpvotes];`
 5. make sure the paragraph displaying upvotes uses the new state variable. `&lt;p>This article has {upvotes} upvotes!&lt;/p>`
-6.  create the handler function, "onUpvoteClicked" for the button click. This function will make an axios.post request and use the returned data to call the state setter `setUpvotes()` to update the state variable.
+6.  create the handler function, "onUpvoteClicked" for the button click within the component function. This function will make an axios.post request and use the returned data to call the state setter `setUpvotes()` to update the upvotes state variable.
 
-Add an *onClick* prop to the button which will be an async function that makes an axios POST request to increment upvotes for the current article. We also need to make sure the upvotes value is updated on the page so the *useState* hook is imported and used to store changes to the article upvotes. After the loader returns the upvotes & comments from the *useLoaderData* hook we will create a new state value for the article upvotes.
 
 <span style="color:gray;font-size:smaller;">front-end/src/pages/ArticlePage.jsx</span><br>
 <pre><code>import { useState } from 'react';
@@ -20,7 +19,7 @@ const { upvotes : initialUpvotes, comments } = useLoaderData();
 const [upvotes, setUpvotes] = useState(initialUpvotes);
 ...
 
-exportDefault function ArticlePage() {
+export default function ArticlePage() {
   ...
   async function onUpvoteClicked() {
     const response = await axios.post('/api/articles/' + name + '/upvote');
