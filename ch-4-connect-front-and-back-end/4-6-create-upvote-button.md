@@ -3,8 +3,8 @@
 
 Now that we can make a request for data, the next step is to make a request to update data such as increment upvotes.
 
-Next we will create a button to increment an article's upvote value.
-1. Create a button on the *ArticlePage* with a value of "Upclick"
+Next we will create a button to increment an article's upvote value with help of axios.
+1. Create a button on the *ArticlePage* with a value of "Upvote"
 2. Add an *onClick()" prop to the button and provide a handler function named "onUpvoteClicked"
 3. rename the variable returned from the *useLoaderData* to "initialUpvotes" to prevent name conflicts. `const { upvotes : initialUpvotes, comments } = useLoaderData();`
 4. import the *useState* hook. Initialize a new state variable named "upvotes" with a setter "setUpvotes" and initialize it with "initialUpvotes". `const [upvotes, setUpvotes] = useState[initialUpvotes];`
