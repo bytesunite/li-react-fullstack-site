@@ -44,7 +44,7 @@ export default function AddCommentForm({onAddComment}) {
 Now we can go to the *ArticlePage* component to insert the form and create the function.
 1. import *AddCommentForm*
 2. insert the *&lt;AddCommentForm onAddComment={onAddComment} />* element above the *CommentsList* element 
-3. rename the value returned by the *useLoaderData()* hook to "initialComments". `const {upvotes : initialUpvotes, comments: initialComments };`
+3. rename the value returned by the *useLoaderData()* hook to "initialComments". `const {upvotes : initialUpvotes, comments: initialComments } = useLoaderData();`
 5. create a new state variable to hold comments and initialize it with *initialComments*. `const [comments, setComments] = useState(initialComments);`
 6. create the *onAddComment* function to handle the submission and provide two parameters for the name & text of the comment.
 
@@ -78,7 +78,7 @@ export default function ArticlePage() {
 
 With all those changes, let's try it out. The form isn't the prettiest but functional. Go to the "learn-react" article and fill out the form and click the "Add Comment" button. For example, enter "Shaun2" and "I agree, this is a wonderful article", then press the *Add Comment* button.<br>
 <pre>
-Name: Shaun2     Comment: I agree, this is a wonderful article   <span style="background-color:gray;border:1px solid black;border-radius:0.5rem;padding:0.7rem;">Add Comment</span>
+Name: Shaun2     Comment: I agree, this is a wonderful article   <span style="background-color:gray;border:1px solid black;border-radius:0.5rem;padding:0.2rem;">Add Comment</span>
 </pre>
 
 If all went well the comments on the page will be updated on the page, including the new comment.<br>
@@ -94,21 +94,7 @@ I agree, this is a wonderful article
 TROUBLESHOOTING (not part of course):<br>
 If the app breaks, double check your handler function in *ArticlePage* and how you are invoking it in *AddCommentForm*. Make sure you are providing the arguments the same way. For example, the instructor uses `{nameText, commentText}` as an argument to *onAddComment* in ArticlePage, rather than `nameText, commentText`. This same format is used in the AddCommentForm by calling `onAddComment({nameText, commentText}` rather than separate parameters. 
 
-If you don't pay attention you may end up messing up the mongodb database such as inserting a nested object:<br>
-<pre><code style="color:red"> 
-  _id: '2923...', name: 'learn-react', upvotes:2, 
-  comments: [
-    ...
-    {
-      postedBy: {
-        postedBy: 'Shaun2', 
-        text: 'blah'
-      }
-    }
-  ]
-</code></pre>
-
-If you messed up your mongodb database you can always update or remove documents. For example, if you want to reset the comments array to an empty array, you can run the following command in the Mongo Shell:<br>
+If you don't pay attention you may end up messing up the mongodb database such as inserting a nested object. If you messed up your mongodb database you can always update or remove documents. For example, if you want to reset the comments array to an empty array, you can run the following command in the Mongo Shell:<br>
 <pre><code>/$ mongosh
 test> use full-stack-react-db
 full-stack-react-db> db.articles.updateOne({name: 'learn-react'}, { $set: {comments: []}})
