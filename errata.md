@@ -5,6 +5,8 @@
 ISSUE: lack of error handling, validation/sanitization<br>
 Chapter 5-8 shows how to add Firebase to the backend, which is a good thing, but more needs to be done to stress the importance of validating and sanitizing ALL data to and from the server, which also means sanitizing client-side input.
 
+ISSUE: Article content location. Why is the article content is stored in a static file "front-end/src/article-content.js", instead of in the database? 
+
 SUGGESTION: Address secure coding practices throughout the course. Students should be thinking about best security practices from the beginner. Security could be introduced in small additional videos throughout the course as not to distract from the main course.
 - Discuss how React defends you from bad code
 - Stress the importance of validation/sanitization of both the client & server
