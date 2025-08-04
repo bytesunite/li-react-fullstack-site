@@ -46,7 +46,7 @@ app.post('/api/articles/:name/upvote', async (req, res) => {
   const article = await db.collection('articles').findOne({ name });
 
   const upvoteIds = article.upvoteIds || [];
-  const canUpvote = uid && !upvoteId.include(uid);
+  const canUpvote = uid && !upvoteIds.include(uid);
 
   if(canUpvote){
     const updatedArticle = await db.collection('articles').findOneAndUpdate({ name }, {
