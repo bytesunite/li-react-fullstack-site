@@ -39,10 +39,12 @@ export default function ArticlePage(){
   return (
       <>
         <h1>{article ? article.title : errorMessage}</h1>
-        <button onClick={onUpvoteClicked}>Upvote</button>
+        {user && <button onClick={onUpvoteClicked}>Upvote</button>}
         <p>This article has {upvotes} upvotes!</p>
         {article && article.content.map(p => <p key={p}>{p}</p>)}
-        <AddCommentForm onAddComment={onAddComment} />
+        {user 
+          ? <AddCommentForm onAddComment={onAddComment} />
+          : <p>Login to make a comment</p>}
         <CommentsList comments={comments} />
       </>
   );
