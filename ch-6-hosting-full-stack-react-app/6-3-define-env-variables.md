@@ -43,8 +43,8 @@ Make sure you don't publish this file by adding it to .gitignore.
 
 back-end/prod-env.yaml
 <pre><code>env_variables: 
-  MONGODB_USERNAME=full-stack-react-server
-  MONGODB_PASSWORD=jZ89sns94s49idsn9
+  MONGODB_USERNAME: full-stack-react-server
+  MONGODB_PASSWORD: jZ89sns94s49idsn9
 </code></pre>
 
 Add "prod-env.yaml" to your .gitignore file.
